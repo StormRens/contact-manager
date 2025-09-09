@@ -19,7 +19,6 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
 }
 
 #loggedInDiv
@@ -28,7 +27,6 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
 }
 
 #accessUIDiv
@@ -47,6 +45,7 @@ body
     width: 50%;
     margin-left: 25%;
     font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
 }
 
 .buttons:hover{
