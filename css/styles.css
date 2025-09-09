@@ -138,3 +138,40 @@ select{
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
 }
+
+/* CSS for logging in */
+
+
+#firstname
+{
+	font-size: 30px;
+}
+#lastname
+{
+	font-size: 30px;
+}
+
+#registerResult{
+    display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
+.grid-container {
+    display: flex;
+    gap: 10px;
+    width: 80%; /* Match your overall width */
+    margin-left: 10%; /* Match your overall margin */
+    margin-bottom: 2%;
+}
+
+.grid-container input[type="text"] {
+    width: 100%; /* Use full width of their flex container */
+    margin-left: 0; /* Remove the left margin */
+    flex: 1; /* Equal width distribution */
+}
