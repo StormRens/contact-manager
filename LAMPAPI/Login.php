@@ -1,6 +1,7 @@
-
 <?php
-
+	#In this file, We are going to be dealing with the login of the user. Also lets make another file for
+	#registering the user.
+	#We will be using a database to store the user information. We will be using MySQL for this.
 	$inData = getRequestInfo();
 	
 	$id = 0;
