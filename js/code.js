@@ -58,6 +58,51 @@ function doLogin()
 
 }
 
+function addContact() {
+	let firstName = document.getElementById("firstname").value.trim();
+	let lastName = document.getElementById("lastname").value.trim();
+
+	if(!firstName || !lastName) {
+		document.getElementById("add-contact").innerHTML = "Please enter all fields";
+	}
+
+	document.getElementById("add-contact").innerHTML = "";
+
+	readCookie(); // need to set userId to the global variable
+
+	// TODO: update api so it doesnt take in email and phone number
+	let temp = {firstName:firstName, lastName:lastName, userId:userId};
+	let jsonPayload = JSON.stringify(temp);
+	let url = urlBase + 'AddContacts' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function()
+		{
+			if(this.readyState == 4 & this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if(jsonObject.error) {
+					document.getElementById("add-contact").innerHTML = "Something went wrong";
+					return;
+				}
+
+				// need to make this look better
+				document.getElementById("add-contact").innerHTML = "User added!";
+			}
+		};
+		xhr.send(jsonPayload);
+		
+	} catch (error) {
+		document.getElementById("add-contact").innerHTML = error.message;
+		
+	}
+
+}
+
 function register() {
 	// get values from html
 	firstName = document.getElementById("firstname").value.trim();
@@ -108,7 +153,7 @@ function register() {
 
 		
 	} catch (error) {
-		document.getElementById("registerResult").innerHTML = err.message;
+		document.getElementById("registerResult").innerHTML = error.message;
 	}
 	
 }
