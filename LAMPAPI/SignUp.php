@@ -2,16 +2,20 @@
 
 	$inData = getRequestInfo();
 
+    #Set variables to the input data
 	$firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     $login = $inData["login"];
     $password = $inData["password"];
 
+    #Create our connection to the database, return an error if the connection fails
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
 	}
+
+    #If the connection is successful, check if the username is taken, if not insert the new user into the database
 	else
 	{
 		$sql = "SELECT * FROM Users WHERE Login=?";
@@ -38,22 +42,28 @@
 		}
 	}
 
+
+    #Get the input data from the user
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
+    #send the result back as a json object
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
 		echo $obj;
 	}
 
+    #return with an error message
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
+
+    #return with the search results
 	function returnWithInfo( $searchResults )
 	{
 		$retValue = '{"results":[' . $searchResults . '],"error":""}';
