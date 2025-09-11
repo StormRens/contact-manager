@@ -34,7 +34,7 @@
 			$conn->close();
 			http_response_code(200);
 
-			returnWithInfo($firstName, $lastName);
+			returnWithInfo($firstName, $lastName, $id);
 		} else {
 			http_response_code(409);
 			returnWithError("Username taken");
@@ -63,9 +63,9 @@
 	}
 
     #return with the search results
-	function returnWithInfo( $firstName, $lastName )
+	function returnWithInfo( $firstName, $lastName, $id )
 	{
-		$retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+		$retValue = '{"id":' . $id . ', "firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 

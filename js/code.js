@@ -60,10 +60,15 @@ function doLogin()
 
 function register() {
 	// get values from html
-	firstName = document.getElementById("firstname").value;
-	lastName = document.getElementById("lastname").value;
-	let userName = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
+	firstName = document.getElementById("firstname").value.trim();
+	lastName = document.getElementById("lastname").value.trim();
+	let userName = document.getElementById("loginName").value.trim();
+	let password = document.getElementById("loginPassword").value.trim();
+
+	if(!firstName || !lastName || !userName || !password) {
+		document.getElementById("registerResult").innerHTML = "Please enter all fields";
+		return;
+	}
 
 	document.getElementById("registerResult").innerHTML = ""; // no error just yet
 
@@ -89,7 +94,8 @@ function register() {
 					return;
 				}
 
-				// get first and last name to use in cookie
+				// get first and last name to use in cookie and id
+				userId = jsonObject.id;
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
