@@ -15,7 +15,7 @@ body
 {
     font-size: 40px;
     width: 100%;
-    margin: 2% 5%;
+    margin: 2% 0%;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
     color: #FFFFFF;
@@ -182,3 +182,15 @@ select{
     margin-left: 0; /* Remove the left margin */
     flex: 1; /* Equal width distribution */
 }
+
+#add-contact{
+     display: inline-block;
+    font-size: 0.8em;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    font-family: 'Ubuntu', sans-serif;
+    color: #95060a;
+}
+
