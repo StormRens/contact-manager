@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <title>Contact sign up</title>
+  <script type="text/javascript" src="js/md5.js"></script>
+  <script type="text/javascript" src="js/code.js"></script>
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</head>
+
+<body>
+  <h1 id="title">Welcome!</h1>
+  <div id="loginDiv">
+    <!-- Buttons section -->
+    <div class="grid-container">
+      <button type="button" id="link-logout-homepage" class="buttons-for-homepage" onclick="doLogout();">Log
+        Out</button>
+      <button type="button" id="link-to-add-page" class="buttons-for-homepage"
+        onclick="window.location.href='add-contact.html'">Add Contact</button>
+    </div>
+
+    <!-- Input section -->
+    <input type="text" id="firstname" placeholder="Enter first name" /><br>
+    <input type="text" id="lastname" placeholder="Enter last name" /><br>
+
+    <!-- Search button with text -->
+    <button type="button" id="search" class="buttons" onclick="searchContacts();">Search</button>
+  </div>
+</body>
+
+</html>
