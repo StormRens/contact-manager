@@ -58,6 +58,55 @@ function doLogin()
 
 }
 
+function register() {
+	// get values from html
+	firstName = document.getElementById("firstname").value;
+	lastName = document.getElementById("lastname").value;
+	let userName = document.getElementById("loginName").value;
+	let password = document.getElementById("loginPassword").value;
+
+	document.getElementById("registerResult").innerHTML = ""; // no error just yet
+
+	// prepare to send data to backend
+	let temp = {firstName:firstName, lastName:lastName, login:userName, password:password};
+	let jsonPayload = JSON.stringify(temp);
+
+	let url = urlBase + '/SignUp' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function()
+		{
+			// response is recieved and with good status code
+			if(this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if(jsonObject.error) {
+					document.getElementById("registerResult").innerHTML = "Username taken";
+					return;
+				}
+
+				// get first and last name to use in cookie
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+
+				window.location.href = "homepage.html"
+			}
+		};
+		xhr.send(jsonPayload);
+
+		
+	} catch (error) {
+		document.getElementById("registerResult").innerHTML = err.message;
+	}
+	
+}
+
 function saveCookie()
 {
 	let minutes = 20;
