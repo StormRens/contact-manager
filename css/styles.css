@@ -209,3 +209,28 @@ select{
     color: #95060a;
 }
 
+#link-logout-homepage{
+     width: 20%;
+    
+}
+
+#link-to-add-page{
+    width: 20%;
+    
+}
+
+.buttons-for-homepage{
+      font-size: 30px;
+    border-radius: 25px;
+    flex: 1;
+    font-family: 'Ubuntu', sans-serif;
+    cursor: pointer;
+    border: 2px outset #ccc;
+    padding: 10px 20px;
+}
+
+.buttons-for-homepage:hover {
+    background-color: #00d5124f;
+    color: #FFFFFF;
+    opacity: 50%;
+}
