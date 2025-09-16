@@ -15,7 +15,7 @@
   }
 
   // connect to web server
-  $conn = new mysqli("localhost", "root", "", "api_testing");
+  $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
   if ($conn->connect_error)
   {
     returnWithError($conn->connect_error);
@@ -33,7 +33,7 @@
     // check if anything was deleted
     if ($stmt->affected_rows > 0) {
       // if we are in here it means that we deleted something, so now return it
-      returnWithResults([["ID" => $contactIdInt]]);
+      returnWithError("");
     } 
     else {
       // found nothing, return nothing
@@ -63,17 +63,7 @@
   function returnWithError($err)
   {
     sendResultInfoAsJson(json_encode([
-      "results" => [],
       "error"   => $err
-    ]));
-  }
-
-  // $items is an array; e.g., [ ["ID" => 123] ]
-  function returnWithResults($items)
-  {
-    sendResultInfoAsJson(json_encode([
-      "results" => $items,
-      "error"   => ""
     ]));
   }
 

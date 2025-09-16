@@ -158,6 +158,44 @@ function register() {
 	
 }
 
+function deleteContact() {
+	readCookie();
+	// figure out how to get this later once implemented in frontend
+	let contactId = "";
+
+	document.getElementById("deleteResult").innerHTML = "";
+
+	let temp = {userId:userId, contactId: contactId};
+	let jsonPayload = JSON.stringify(temp);
+
+	let url = urlBase + '/DeleteContact' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function()
+		{
+			if(this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if(jsonObject.error) {
+					document.getElementById("deleteResult").innerHTML = "Failed to delete user";
+					return;
+				}
+
+				// figure out better way to show successfuly deleting contact
+				window.location.href = "homepage.html";
+			}
+		}
+		xhr.send(jsonPayload);
+		
+	} catch (error) {
+		document.getElementById("deleteResult").innerHTML = error.message;
+	}
+}
+
 function saveCookie()
 {
 	let minutes = 20;
