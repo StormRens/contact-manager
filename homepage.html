@@ -25,6 +25,62 @@
 
     <!-- Search button with text -->
     <button type="button" id="search" class="buttons" onclick="searchContacts();">Search</button>
+
+    <!-- Contact Result (Static for demo) -->
+    <div class="contact-card">
+      <div class="contact-info">
+        <div class="contact-name">
+          <strong>first last</strong>
+        </div>
+        <div class="contact-details">
+          First: first<br>
+          Last: last
+        </div>
+      </div>
+
+      <!-- Edit/Delete Actions -->
+      <div class="contact-actions">
+        <a href="#edit-contact" class="action-btn edit-btn">Edit</a>
+        <a href="#delete-contact" class="action-btn delete-btn">Delete</a>
+      </div>
+    </div>
+
+    <!-- Edit Form (Hidden by default) -->
+    <div id="edit-contact" class="edit-form">
+      <h3>Edit Contact</h3>
+      <form method="post" action="">
+        <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="contact_id" value="contact-1">
+
+        <label>First Name:</label>
+        <input type="text" name="edit_firstname" value="First" required><br>
+
+        <label>Last Name:</label>
+        <input type="text" name="edit_lastname" value="Last" required><br>
+
+        <div class="form-buttons">
+          <input type="submit" value="Save Changes" class="save-btn">
+          <a href="#" class="cancel-btn">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Delete Confirmation (Hidden by default) -->
+    <div id="delete-contact" class="delete-confirmation">
+      <h3>Delete Contact</h3>
+      <p>Are you sure you want to delete this contact ?</p>
+      <form method="post" action="">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="contact_id" value="contact-1">
+
+        <div class="form-buttons">
+          <input type="submit" value="Yes, Delete" class="delete-btn">
+          <a href="#" class="cancel-btn">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+
   </div>
 </body>
 
