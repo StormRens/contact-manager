@@ -197,6 +197,8 @@ function deleteContact() {
 }
 
 function searchContact() {
+	document.getElementById("searchResultError").innerHTML = "No users found"; 
+	return;
 	readCookie();
 	let searchFirstName = document.getElementById("firstname").value.trim();
 	let searchLastName = document.getElementById("lastname").value.trim();
