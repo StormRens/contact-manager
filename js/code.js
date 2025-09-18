@@ -196,6 +196,52 @@ function deleteContact() {
 	}
 }
 
+function searchContact() {
+	document.getElementById("searchResultError").innerHTML = "No users found"; 
+	return;
+	readCookie();
+	let searchFirstName = document.getElementById("firstname").value.trim();
+	let searchLastName = document.getElementById("lastname").value.trim();
+	let searchTerm = searchFirstName + searchLastName;
+
+	if(!searchTerm) {
+		document.getElementById("searchResultError").innerHTML = "Please enter a first or last name to search";
+		return;
+	}
+
+	document.getElementById("searchResultError").innerHTML = ""; 
+
+	let temp = {search:searchTerm, userId:userId};
+	let jsonPayload = JSON.stringify(temp);
+
+	let url = urlBase + '/SearchContacts' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function()
+		{
+			if(this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if(jsonObject.error) {
+					document.getElementById("searchResultError").innerHTML = "No users found"; 
+					return;
+				}
+				// if we get here, we found users
+				const users = jsonObject.results.map()
+
+			}
+		}
+		xhr.send(jsonPayload);
+		
+	} catch (error) {
+		document.getElementById("searchResultError").innerHTML = error.message;	
+	}
+}
+
 function saveCookie()
 {
 	let minutes = 20;
