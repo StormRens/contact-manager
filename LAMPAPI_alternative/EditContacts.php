@@ -5,7 +5,8 @@
 //but I also included their implementation as comments in case we find its mandatory for the project
 //To switch btw w/ Phone/Email (V_PE) , and without (X_PE)
 
-//Expecting Front-End Request names to be : ContactId, UserId, FirstName, LastName, Error, (Email, Phone)commented
+//Expecting Front-End Request names to be : ContactID, UserID, FirstName, LastName, Error, (Email, Phone)commented
+//Sendint to Front-End:
 
 header("Content-Type: application/json");
 
@@ -13,8 +14,8 @@ header("Content-Type: application/json");
 $data = getRequestInfo();
 
 //Pull required keys and sanitize
-$userId    = isset($data['UserId'])    ? (int)$data['UserId']    : 0;
-$contactId = isset($data['ContactId']) ? (int)$data['ContactId'] : 0;
+$userId    = isset($data['UserID'])    ? (int)$data['UserID']    : 0;
+$contactId = isset($data['ContactID']) ? (int)$data['ContactID'] : 0;
 
 //Determine which fields to update
 //array_key_exists ensures empty string ("") is a valid new value
@@ -88,7 +89,7 @@ if (!$stmt->execute()) {
 $stmt->close();
 
 //Update sent to database, now read back from database to send to front-end
-$readBack = $conn->prepare("SELECT ID AS ContactId, UserId, FirstName, LastName FROM Contacts WHERE ID = ? AND UserId = ? LIMIT 1");//(X_PE)
+$readBack = $conn->prepare("SELECT ID AS ContactID, UserID, FirstName, LastName FROM Contacts WHERE ID = ? AND UserID = ? LIMIT 1");//(X_PE)
 //$readBack = $conn->prepare("SELECT ID AS ContactId, UserId, FirstName, LastName, Email, Phone FROM Contacts WHERE ID = ? AND UserId = ? LIMIT 1");//(V_PE)
 if (!$readBack) {
     returnWithError("Query prep (select) failed");
@@ -129,8 +130,8 @@ function returnWithError($err)
 {
     // Keep your style: return a consistent error payload
     $retValue = json_encode([
-        "ContactId" => 0,
-        "UserId"    => 0,
+        "ContactID" => 0,
+        "UserID"    => 0,
         "FirstName" => "",
         "LastName"  => "",
         //"Email"     => "",//(V_PE)
@@ -143,8 +144,8 @@ function returnWithError($err)
 function returnWithInfo(array $row)
 {
     $payload = [
-        "ContactId" => (int)$row["ContactId"],
-        "UserId"    => (int)$row["UserId"],
+        "ContactID" => (int)$row["ContactID"],
+        "UserID"    => (int)$row["UserID"],
         "FirstName" => (string)$row["FirstName"],
         "LastName"  => (string)$row["LastName"],
         //"Email"     => (string)$row["Email"],//(V_PE)
@@ -157,17 +158,17 @@ function returnWithInfo(array $row)
 
 // Input JSON (any subset of fields):
 // {
-//   "UserId": 123,
-//   "ContactId": 456,
+//   "UserID": 123,
+//   "ContactID": 456,
 //   "FirstName": "Ada",         
-//   "LastName": "Lovelace",     
+//   "LastName": "Lace",     
 //   "Email": "ada@math.org",    //implemented as comment
 //   "Phone": "555-123-4567"     //implemented as comment
 // }
 // Returns JSON:
 // {
-//   "ContactId": 456,
-//   "UserId": 123,
+//   "ContactID": 456,
+//   "UserID": 123,
 //   "FirstName": "Ada",
 //   "LastName": "Lovelace",
 //   "Email": "ada@math.org",   //implemented as comment
