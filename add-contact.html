@@ -9,24 +9,24 @@
 </head>
 
 <body>
-  <h1 id="title">Contact sign up</h1>
+  <div class="container-box">
+    <h1 id="title">Contact sign up</h1>
 
-  <div id="loginDiv">
-    <span id="inner-title">Enter first and last name below</span>
+    <div id="loginDiv">
+      <span id="inner-title">Enter first and last name below</span>
 
 
-    <div class="grid-container">
-      <input type="text" id="firstname" placeholder="Enter first name" /><br>
-      <input type="text" id="lastname" placeholder="Enter last name" /><br>
+      <div class="grid-container">
+        <input type="text" id="firstname" placeholder="Enter first name" /><br>
+        <input type="text" id="lastname" placeholder="Enter last name" /><br>
+      </div>
+      <input type="text" id="email" placeholder="Enter email address" /><br>
     </div>
-    <input type="text" id="email" placeholder="Enter Email address :P" /><br>
 
+    <button type="button" id="loginButton" class="buttons" onclick="addContact();"> Add Contact </button>
+
+    <span id="add-contact"></span>
   </div>
-
-  <button type="button" id="loginButton" class="buttons" onclick="addContact();"> Add Contact </button>
-
-  <span id="add-contact"></span>
-
 </body>
 
 </html>
