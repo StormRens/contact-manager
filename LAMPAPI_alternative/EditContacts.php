@@ -6,7 +6,7 @@
 //To switch btw w/ Phone/Email (V_PE) , and without (X_PE)
 
 //Expecting Front-End Request names to be : ContactID, UserID, FirstName, LastName, Error, (Email, Phone)commented
-//Sendint to Front-End:
+//Keys to be send: ContactID, UserID, FirstName, LastName, Error, (Email, Phone)commented
 
 header("Content-Type: application/json");
 

@@ -1,5 +1,7 @@
 <?php
 
+//Expected keys from front-end : Login, Password
+//Keys to be send: FirstName, LastName, ID, Error
 
 //Set header to return JSON (deciding whether or not to just keep it inside the function)
 //header("Content-Type: application/json");
@@ -9,8 +11,8 @@ $data = getRequestInfo();
 
 
 //Sanitize and validate data
-$username = isset($data['username']) ? trim($data['username']) : '';
-$password = isset($data['password']) ? trim($data['password']) : '';
+$username = isset($data['Login']) ? trim($data['Login']) : '';
+$password = isset($data['Password']) ? trim($data['Password']) : '';
 
 //Do not request access to database if we do not have both username and password
 if ($username === '' || $password === '')
@@ -21,9 +23,9 @@ if ($username === '' || $password === '')
 
 //database variables
 $db_host = "localhost";
-$db_username = "root";
-$db_password = "";
-$db_name = "api_testing";
+$db_username = "TheBeast";
+$db_password = "WeLoveCOP4331";
+$db_name = "COP4331";
 
 
 //connection to the database
@@ -38,7 +40,7 @@ else
 {
 	$conn->set_charset("utf8mb4");	//ensures it can also handle weird chars (extra)
 
-    $sql = "SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?";//DATABASE TABLES HERE
+    $sql = "SELECT ID,FirstName,LastName FROM Users WHERE Login=? AND Password =?";//DATABASE TABLES HERE
     $stmt = $conn->prepare($sql);
 
     //If the query fails, send a message
@@ -52,7 +54,7 @@ else
 
     if( $row = $result->fetch_assoc()  )
 	{
-		returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+		returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
 	}
 	else
 	{
@@ -81,10 +83,10 @@ function sendResultInfoAsJson( $obj )
 function returnWithError( $err )
 {
 	$retValue = [
-        "id" => 0,
-        "firstName" => "",
-        "lastName" => "",
-        "error" => $err
+        "ID" => 0,
+        "FirstName" => "",
+        "LastName" => "",
+        "Error" => $err
     ];
     sendResultInfoAsJson(json_encode($retValue));
 }
@@ -93,10 +95,10 @@ function returnWithError( $err )
 function returnWithInfo( $firstName, $lastName, $id )
 {
 	$payload = [
-        "id" => $id,
-        "firstName" => $firstName,
-        "lastName" => $lastName,
-        "error" => ""
+        "ID" => $id,
+        "FirstName" => $firstName,
+        "LastName" => $lastName,
+        "Error" => ""
     ];
     sendResultInfoAsJson(json_encode($payload));
 }
