@@ -192,6 +192,11 @@ select{
     font-size: 30px;
 }
 
+#phone-number
+{
+  font-size: 30px;
+}
+
 #registerResult{
     display: inline-block;
     font-size: 0.8em;
