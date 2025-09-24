@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let contactIdDelete = null;
 
 function doLogin()
 {
@@ -159,10 +160,8 @@ function register() {
 	
 }
 
-function deleteContact() {
+function deleteContact(contactId) {
 	readCookie();
-	// figure out how to get this later once implemented in frontend
-	let contactId = "";
 
 	document.getElementById("deleteResult").innerHTML = "";
 
@@ -251,7 +250,7 @@ function searchContact() {
 
         <div class="contact-actions">
           <a href="#edit-contact" class="action-btn edit-btn">Edit</a>
-          <a href="#delete-contact" class="action-btn delete-btn">Delete</a>
+          <a href="#delete-contact" class="action-btn delete-btn" onClick="showDeletePopup(${user.ID})">Delete</a>
         </div>
       </div>
 			`;
@@ -269,6 +268,23 @@ function searchContact() {
 function displayNumber(phone) {
     return `(${phone.substring(0,3)})-${phone.substring(3,6)}-${phone.substring(6)}`;
 
+}
+
+function showDeletePopup(contactId) {
+    contactIdDelete = contactId;
+    document.getElementById("delete-contact").style.display = "block";
+}
+
+function hideDeletePopup() {
+    contactIdDelete = null;
+    document.getElementById("delete-contact").style.display = "none";
+}
+
+function confirmDeleteContact() {
+    if (contactIdDelete !== null) {
+        deleteContactById(contactIdDelete);
+        hideDeletePopup();
+    }
 }
 
 function saveCookie()
