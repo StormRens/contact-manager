@@ -1,13 +1,16 @@
 <?php
 //SignUp.php > Creates a new user in Users table (ID, firstName, lastName, Login, Password)
 
+//Expected keys from front-end : FirstName, LastName, Login, Password
+//Keys to be send: FirstName, LastName, ID, Error
+
 
 //Read request JSON
 $data = getRequestInfo();
 
 //Sanitize data (trim accidental spaces)
-$firstName = isset($data['firstName']) ? trim($data['firstName']) : '';
-$lastName  = isset($data['lastName'])  ? trim($data['lastName'])  : '';
+$firstName = isset($data['FirstName']) ? trim($data['FirstName']) : '';
+$lastName  = isset($data['LastName'])  ? trim($data['LastName'])  : '';
 $username  = isset($data['Login'])     ? trim($data['Login'])     : '';
 $password  = isset($data['Password'])  ? trim($data['Password'])  : '';
 
@@ -18,9 +21,9 @@ if ($firstName === '' || $lastName === '' || $username === '' || $password === '
 
 //DB values for connection
 $db_host = "localhost";
-$db_username = "root";
-$db_password = "";
-$db_name = "api_testing";
+$db_username = "TheBeast";
+$db_password = "WeLoveCOP4331";
+$db_name = "COP4331";
 
 $conn = new mysqli($db_host, $db_username, $db_password, $db_name);
 if ($conn->connect_error) {
@@ -44,7 +47,7 @@ if ($result && $result->num_rows > 0) {
 }
 
 //2) Else, create the user
-$sql = "INSERT INTO Users (firstName, lastName, Login, Password) VALUES (?, ?, ?, ?)"; //DATABASE VALUES HERE
+$sql = "INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)"; //DATABASE VALUES HERE
 $stmt = $conn->prepare($sql);
 if (!$sql) {
     returnWithError("Query prep failed (insert)");
@@ -79,10 +82,10 @@ function sendResultInfoAsJson($obj)
 function returnWithError($err)
 {
     $retValue = json_encode([
-        "id" => 0,
-        "firstName" => "",
-        "lastName" => "",
-        "error" => $err
+        "ID" => 0,
+        "FirstName" => "",
+        "LastName" => "",
+        "Error" => $err
     ]);
     sendResultInfoAsJson($retValue);
 }
@@ -90,10 +93,10 @@ function returnWithError($err)
 function returnWithInfo($firstName, $lastName, $id)
 {
     $payload = [
-        "id" => $id,
-        "firstName" => $firstName,
-        "lastName" => $lastName,
-        "error" => ""
+        "ID" => $id,
+        "FirstName" => $firstName,
+        "LastName" => $lastName,
+        "Error" => ""
     ];
     sendResultInfoAsJson(json_encode($payload));
 }

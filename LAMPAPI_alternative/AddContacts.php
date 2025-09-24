@@ -1,28 +1,33 @@
 <?php
 // AddContacts.php — Inserts a new contact owned by a specific user (Contacts table)
 
+//Expected keys from front-end : FirstName, LastName, UserID, Phone, Email
+//Keys to be send: FirstName, LastName, ContactID, UserID Error
+
+//ID from the contacts table is written as ID, but using ContactID for clarity 
+
 header("Content-Type: application/json");
 
 //Get front-end request
 $data = getRequestInfo();
 
 //Sanitize data (trim accidental spaces)
-$userId    = isset($data['userId'])    ? (int)$data['userId']             : 0;
-$firstName = isset($data['firstName']) ? trim($data['firstName']) : '';
-$lastName  = isset($data['lastName'])  ? trim($data['lastName'])  : '';
-$email     = isset($data['email'])     ? trim($data['email'])     : '';
-$phone     = isset($data['phone'])     ? trim($data['phone'])     : '';
+$userId    = isset($data['UserID'])    ? (int)$data['UserID']             : 0;
+$firstName = isset($data['FirstName']) ? trim($data['FirstName']) : '';
+$lastName  = isset($data['LastName'])  ? trim($data['LastName'])  : '';
+$email     = isset($data['Email'])     ? trim($data['Email'])     : '';
+$phone     = isset($data['Phone'])     ? trim($data['Phone'])     : '';
 
 //Depends in what data we consider mandatory 
 if ($userId <= 0 || $firstName === '' || $lastName === '') {
-    returnWithError("Missing required fields (userId, firstName, lastName)");
+    returnWithError("Missing required fields (UserId, FirstName, LastName)");
 }
 
 //DB connection values
 $db_host = "localhost";
-$db_user = "root";
-$db_pass = "";
-$db_name = "api_testing";
+$db_user = "TheBeast";
+$db_pass = "WeLoveCOP4331";
+$db_name = "COP4331";
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) {
@@ -72,13 +77,13 @@ function sendResultInfoAsJson($obj)
 function returnWithError($err)
 {
     $retValue = json_encode([
-        "contactId" => 0,
-        "userId"    => 0,
-        "firstName" => "",
-        "lastName"  => "",
-        "email"     => "",
-        "phone"     => "",
-        "error"     => $err
+        "ContactID" => 0,
+        "UserID"    => 0,
+        "FirstName" => "",
+        "LastName"  => "",
+        "Email"     => "",
+        "Phone"     => "",
+        "Error"     => $err
     ]);
     sendResultInfoAsJson($retValue);
 }
@@ -86,33 +91,33 @@ function returnWithError($err)
 function returnWithInfo($contactId, $userId, $firstName, $lastName, $email, $phone)
 {
     $payload = [
-        "contactId" => $contactId,
-        "userId"    => $userId,
-        "firstName" => $firstName,
-        "lastName"  => $lastName,
-        "email"     => $email,
-        "phone"     => $phone,
-        "error"     => ""
+        "ContactID" => $contactId,
+        "UserID"    => $userId,
+        "FirstName" => $firstName,
+        "LastName"  => $lastName,
+        "Email"     => $email,
+        "Phone"     => $phone,
+        "Error"     => ""
     ];
     sendResultInfoAsJson(json_encode($payload));
 }
 
 // Expected JSON from front end (example):
 // {
-//   "userId": 123,
-//   "firstName": "Ada",
-//   "lastName": "Lovelace",
-//   "email": "ada@math.org",        // optional
-//   "phone": "555-123-4567"         // optional
+//   "UserID": 123,
+//   "FirstName": "Ada",
+//   "LastName": "Lace",
+//   "Email": "ada@math.org",        // optional
+//   "Phone": "555-123-4567"         // optional
 // }
 //
 // Returns JSON:
 // {
-//   "contactId": 456,
-//   "userId": 123,
-//   "firstName": "Ada",
-//   "lastName": "Lovelace",
-//   "email": "ada@math.org",
-//   "phone": "555-123-4567",
-//   "error": ""
+//   "ContactID": 456,
+//   "UserID": 123,
+//   "FirstName": "Ada",
+//   "LastName": "Lovelace",
+//   "Email": "ada@math.org",
+//   "Phone": "555-123-4567",
+//   "Error": ""
 // }
