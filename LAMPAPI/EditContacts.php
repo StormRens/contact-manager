@@ -1,12 +1,8 @@
 <?php
 //EditContacts.php -> Update a contact owned by a user 
 
-//As of know, we are not implementing Email and Phone as part of the Contacts table,
-//but I also included their implementation as comments in case we find its mandatory for the project
-//To switch btw w/ Phone/Email (V_PE) , and without (X_PE)
-
-//Expecting Front-End Request names to be : ContactID, UserID, FirstName, LastName, Error, (Email, Phone)commented
-//Keys to be send: ContactID, UserID, FirstName, LastName, Error, (Email, Phone)commented
+//Expecting Front-End Request names to be : ContactID, UserID, FirstName, LastName, Email, Phone
+//Keys to be send: ContactID, UserID, FirstName, LastName, Email, Phone, Error
 
 header("Content-Type: application/json");
 
@@ -22,8 +18,8 @@ $contactId = isset($data['ContactID']) ? (int)$data['ContactID'] : 0;
 $updatable = []; //array so we know which fields to update
 if (array_key_exists('FirstName', $data)) $updatable['FirstName'] = trim((string)$data['FirstName']);
 if (array_key_exists('LastName',  $data)) $updatable['LastName']  = trim((string)$data['LastName']);
-//if (array_key_exists('Email',     $data)) $updatable['Email']     = trim((string)$data['Email']);//(V_PE)
-//if (array_key_exists('Phone',     $data)) $updatable['Phone']     = trim((string)$data['Phone']);//(V_PE)
+if (array_key_exists('Email',     $data)) $updatable['Email']     = trim((string)$data['Email']);//V
+if (array_key_exists('Phone',     $data)) $updatable['Phone']     = trim((string)$data['Phone']);//V
 
 //If we don't have the required info for the specific contact, return w/ error
 if ($userId <= 0 || $contactId <= 0) {
@@ -31,8 +27,7 @@ if ($userId <= 0 || $contactId <= 0) {
 }
 //Make sure there is an update to be made
 if (count($updatable) === 0) {
-    returnWithError("No fields to update (send at least one of firstName/lastName)");
-    //returnWithError("No fields to update (send at least one of firstName/lastName/email/phone)");
+    returnWithError("No fields to update (send at least one of FirstName/LastName/Email/Phone)");//V
 }
 
 //DB connection
@@ -89,8 +84,7 @@ if (!$stmt->execute()) {
 $stmt->close();
 
 //Update sent to database, now read back from database to send to front-end
-$readBack = $conn->prepare("SELECT ID AS ContactID, UserID, FirstName, LastName FROM Contacts WHERE ID = ? AND UserID = ? LIMIT 1");//(X_PE)
-//$readBack = $conn->prepare("SELECT ID AS ContactId, UserId, FirstName, LastName, Email, Phone FROM Contacts WHERE ID = ? AND UserId = ? LIMIT 1");//(V_PE)
+$readBack = $conn->prepare("SELECT ID AS ContactID, UserID, FirstName, LastName, Email, Phone FROM Contacts WHERE ID = ? AND UserID = ? LIMIT 1");//V
 if (!$readBack) {
     returnWithError("Query prep (select) failed");
 }
@@ -108,8 +102,6 @@ $readBack->close();
 $conn->close();
 
 returnWithInfo($row);
-
-
 
 
 //FUNCTIONS:
@@ -134,8 +126,8 @@ function returnWithError($err)
         "UserID"    => 0,
         "FirstName" => "",
         "LastName"  => "",
-        //"Email"     => "",//(V_PE)
-        //"Phone"     => "",//(V_PE)
+        "Email"     => "",//V
+        "Phone"     => "",//V
         "Error"     => (string)$err
     ]);
     sendResultInfoAsJson($retValue);
@@ -148,8 +140,8 @@ function returnWithInfo(array $row)
         "UserID"    => (int)$row["UserID"],
         "FirstName" => (string)$row["FirstName"],
         "LastName"  => (string)$row["LastName"],
-        //"Email"     => (string)$row["Email"],//(V_PE)
-        //"Phone"     => (string)$row["Phone"],//(V_PE)
+        "Email"     => (string)$row["Email"],//V
+        "Phone"     => (string)$row["Phone"],//V
         "Error"     => ""
     ];
     sendResultInfoAsJson(json_encode($payload));
@@ -162,8 +154,8 @@ function returnWithInfo(array $row)
 //   "ContactID": 456,
 //   "FirstName": "Ada",         
 //   "LastName": "Lace",     
-//   "Email": "ada@math.org",    //implemented as comment
-//   "Phone": "555-123-4567"     //implemented as comment
+//   "Email": "ada@math.org",    
+//   "Phone": "555-123-4567"     
 // }
 // Returns JSON:
 // {
@@ -171,7 +163,7 @@ function returnWithInfo(array $row)
 //   "UserID": 123,
 //   "FirstName": "Ada",
 //   "LastName": "Lovelace",
-//   "Email": "ada@math.org",   //implemented as comment
-//   "Phone": "555-123-4567",   //implemented as comment
+//   "Email": "ada@math.org",   
+//   "Phone": "555-123-4567",   
 //   "Error": ""
 // }
