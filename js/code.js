@@ -61,8 +61,10 @@ function doLogin()
 function addContact() {
 	let firstName = document.getElementById("firstname").value.trim();
 	let lastName = document.getElementById("lastname").value.trim();
+	let email = document.getElementById("email").value.trim();
+	let phone = document.getElementById("phone-number").value.trim();
 
-	if(!firstName || !lastName) {
+	if(!firstName || !lastName || !email || phone.length != 10) {
 		document.getElementById("add-contact").innerHTML = "Please enter all fields";
 	}
 
@@ -70,10 +72,9 @@ function addContact() {
 
 	readCookie(); // need to set userId to the global variable
 
-	// TODO: update api so it doesnt take in email and phone number
-	let temp = {firstName:firstName, lastName:lastName, userId:userId};
+	let temp = {firstName:firstName, lastName:lastName, userId:userId, phoneNumber:phone, emailAddress:email};
 	let jsonPayload = JSON.stringify(temp);
-	let url = urlBase + 'AddContacts' + extension;
+	let url = urlBase + 'AddContacts.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -91,7 +92,7 @@ function addContact() {
 				}
 
 				// need to make this look better
-				document.getElementById("add-contact").innerHTML = "User added!";
+				document.getElementById("add-contact").innerHTML = "User added, try searching for them!";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -121,7 +122,7 @@ function register() {
 	let temp = {firstName:firstName, lastName:lastName, login:userName, password:password};
 	let jsonPayload = JSON.stringify(temp);
 
-	let url = urlBase + '/SignUp' + extension;
+	let url = urlBase + '/SignUp.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -168,7 +169,7 @@ function deleteContact() {
 	let temp = {userId:userId, contactId: contactId};
 	let jsonPayload = JSON.stringify(temp);
 
-	let url = urlBase + '/DeleteContact' + extension;
+	let url = urlBase + '/DeleteContact.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -197,49 +198,77 @@ function deleteContact() {
 }
 
 function searchContact() {
-	document.getElementById("searchResultError").innerHTML = "No users found"; 
-	return;
-	readCookie();
-	let searchFirstName = document.getElementById("firstname").value.trim();
-	let searchLastName = document.getElementById("lastname").value.trim();
-	let searchTerm = searchFirstName + searchLastName;
+  readCookie();
+  let searchFirstName = document.getElementById("firstname").value.trim();
+  let searchLastName = document.getElementById("lastname").value.trim();
+  let searchTerm = searchFirstName + searchLastName;
 
-	if(!searchTerm) {
-		document.getElementById("searchResultError").innerHTML = "Please enter a first or last name to search";
-		return;
-	}
+  if (!searchTerm) {
+    document.getElementById("searchResultError").innerHTML =
+      "Please enter a first or last name to search";
+    return;
+  }
 
-	document.getElementById("searchResultError").innerHTML = ""; 
+  document.getElementById("searchResultError").innerHTML = "";
 
-	let temp = {search:searchTerm, userId:userId};
-	let jsonPayload = JSON.stringify(temp);
+  let temp = { search: searchTerm, userId: userId };
+  let jsonPayload = JSON.stringify(temp);
 
-	let url = urlBase + '/SearchContacts' + extension;
+  let url = urlBase + "/SearchContacts." + extension;
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	try {
-		xhr.onreadystatechange = function()
-		{
-			if(this.readyState == 4 && this.status == 200) {
-				let jsonObject = JSON.parse(xhr.responseText);
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let jsonObject = JSON.parse(xhr.responseText);
 
-				if(jsonObject.error) {
-					document.getElementById("searchResultError").innerHTML = "No users found"; 
-					return;
-				}
-				// if we get here, we found users
-				const users = jsonObject.results.map()
+        if (jsonObject.error) {
+          document.getElementById("searchResultError").innerHTML =
+            "No users found";
+          return;
+        }
+        // if we get here, we found users
+        const users = jsonObject.results;
+        let contactsHtml = "";
 
-			}
-		}
-		xhr.send(jsonPayload);
-		
-	} catch (error) {
-		document.getElementById("searchResultError").innerHTML = error.message;	
-	}
+        users.forEach((user) => {
+          contactsHtml += `
+      <div class="contact-card">
+        <div class="contact-info">
+          <div class="contact-name">
+            <strong>${user.FirstName} ${user.LastName}</strong>
+          </div>
+          <div class="contact-details">
+            First: ${user.FirstName}<br>
+            Last: ${user.LastName}<br>
+            Email: ${user.EmailAddress}<br>
+            phone: ${displayNumber(user.PhoneNumber)}
+          </div>
+        </div>
+
+        <div class="contact-actions">
+          <a href="#edit-contact" class="action-btn edit-btn">Edit</a>
+          <a href="#delete-contact" class="action-btn delete-btn">Delete</a>
+        </div>
+      </div>
+			`;
+        });
+
+		document.getElementById("contacts-list").innerHTML = contactsHtml;
+      }
+    };
+    xhr.send(jsonPayload);
+  } catch (error) {
+    document.getElementById("searchResultError").innerHTML = error.message;
+  }
+}
+
+function displayNumber(phone) {
+    return `(${phone.substring(0,3)})-${phone.substring(3,6)}-${phone.substring(6)}`;
+
 }
 
 function saveCookie()
