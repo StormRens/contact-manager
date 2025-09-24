@@ -5,6 +5,7 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 let contactIdDelete = null;
+let contactIdEdit = null;
 
 function doLogin()
 {
@@ -103,6 +104,58 @@ function addContact() {
 		
 	}
 
+}
+
+function editContact(event) {
+    event.preventDefault();
+
+    let firstName = document.querySelector("input[name='edit_firstname']").value.trim();
+    let lastName = document.querySelector("input[name='edit_lastname']").value.trim();
+    let email = document.querySelector("input[name='edit_email']").value.trim();
+    let phone = document.querySelector("input[name=\"'edit_number\"]").value.trim();
+
+    if(!firstName || !lastName || !email || phone.length != 10) {
+		// do something idk
+        return;
+    }
+
+    readCookie();
+
+    let temp = {
+        ContactId: contactIdEdit,
+        UserId: userId,
+        FirstName: firstName,
+        LastName: lastName,
+        Email: email,
+        Phone: phone
+    };
+    let jsonPayload = JSON.stringify(temp);
+
+    let url = urlBase + '/EditContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if(jsonObject.error) {
+					// do something find a place to put these errors
+                    return;
+                }
+
+                hideEditPopup();
+				// do something here also
+				document.window.location.href = "homepage.html"
+            }
+        }
+        xhr.send(jsonPayload);
+    } catch (error) {
+        // do something here
+    }
 }
 
 function register() {
@@ -249,8 +302,8 @@ function searchContact() {
         </div>
 
         <div class="contact-actions">
-          <a href="#edit-contact" class="action-btn edit-btn">Edit</a>
-          <a href="#delete-contact" class="action-btn delete-btn" onClick="showDeletePopup(${user.ID})">Delete</a>
+      	  <button class="action-btn edit-btn" onclick="showEditPopup(${user.ID}, '${user.FirstName}', '${user.LastName}', '${user.EmailAddress}', '${user.PhoneNumber}')">Edit</button>
+          <button class="action-btn delete-btn" onclick="showDeletePopup(${user.ID})">Delete</button>
         </div>
       </div>
 			`;
@@ -285,6 +338,21 @@ function confirmDeleteContact() {
         deleteContactById(contactIdDelete);
         hideDeletePopup();
     }
+}
+
+function showEditPopup(id, firstName, lastName, email, phone) {
+    contactIdEdit = id;
+    document.querySelector("input[name='edit_firstname']").value = firstName;
+    document.querySelector("input[name='edit_lastname']").value = lastName;
+    document.querySelector("input[name='edit_email']").value = email;
+	document.querySelector("input[name='edit_number']").value = phone;
+    document.querySelector("input[name='contact_id']").value = id;
+    document.getElementById("edit-contact").style.display = "block";
+}
+
+function hideEditPopup() {
+    contactIdEdit = null;
+    document.getElementById("edit-contact").style.display = "none";
 }
 
 function saveCookie()
@@ -335,80 +403,4 @@ function doLogout()
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
-}
-
-function addColor()
-{
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-
-	let tmp = {color:newColor,userId,userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/AddColor.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
-}
-
-function searchColor()
-{
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";
-
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchColors.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
-				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-	
 }

@@ -33,28 +33,27 @@
 
 
       <!-- Edit Form (Hidden by default) -->
-      <div id="edit-contact" class="edit-form">
+      <div id="edit-contact" class="edit-form" style="display: none;">
         <h3>Edit Contact</h3>
-        <form method="post" action="">
+        <form id="editContactForm" onsubmit="editContact(event)">
           <input type="hidden" name="action" value="edit">
-          <input type="hidden" name="contact_id" value="contact-1">
+          <input type="hidden" name="contact_id" value="">
 
           <label>First Name:</label>
-          <input type="text" name="edit_firstname" value="First" required><br>
+          <input type="text" name="edit_firstname" value="" required><br>
 
           <label>Last Name:</label>
-          <input type="text" name="edit_lastname" value="Last" required><br>
+          <input type="text" name="edit_lastname" value="" required><br>
 
           <label>Email address</label>
-          <input type="text" name="edit_email" value="Email" required><br>
+          <input type="text" name="edit_email" value="" required><br>
 
-          <!--phone number-->
           <label>Phone number</label>
-          <input type="text" name="'edit_number" value="Phone number" required><br>
+          <input type="text" name="edit_number" value="" required><br>
 
           <div class="form-buttons">
             <input type="submit" value="Save Changes" class="save-btn">
-            <a href="#" class="cancel-btn">Cancel</a>
+            <a href="#" class="cancel-btn" onclick="hideEditPopup(); return false;">Cancel</a>
           </div>
         </form>
       </div>
