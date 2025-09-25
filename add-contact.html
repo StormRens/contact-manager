@@ -22,15 +22,17 @@
       </div>
       <input type="text" id="email" placeholder="Enter email address" /><br>
       <input type="text" id="phone-number" placeholder="Enter phone number" /><br>
-    </div>
 
-    <div class="buttons-grid">
-      <button type="button" id="loginButton" class="buttons" onclick="addContact();"> Add Contact</button>
-      <button type="button" id="homepage" class="buttons"
-        onclick="window.location.href='homepage.html'">Homepage</button>
+
+      <div class="grid-container">
+        <button type="button" id="loginButton" class="buttons-for-homepage" onclick="addContact();"> Add
+          Contact</button>
+        <button type="button" id="homepage" class="buttons-for-homepage"
+          onclick="window.location.href='homepage.html'">Homepage</button>
+      </div>
+      <span id="add-contact"></span>
+      <span id="success" style="color: greenyellow;"></span>
     </div>
-    <span id="add-contact"></span>
-    <span id="success" style="color: greenyellow;"></span>
   </div>
 </body>
 

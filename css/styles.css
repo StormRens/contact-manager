@@ -439,16 +439,3 @@ select{
       background: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
-
-
-   .buttons-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;  /* This creates 2 columns side by side */
-    gap: 20px;
-    width: 100%;
-}
-
-.buttons-grid .buttons {
-    margin-left: 0;
-    width: 100%;
-}
