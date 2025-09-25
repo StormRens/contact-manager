@@ -88,20 +88,25 @@ function addContact() {
 		{
 			if(this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
+				console.log("went into function")
 
 				if(jsonObject.error) {
+					console.log("Error in if statement");
 					document.getElementById("add-contact").innerHTML = "Something went wrong";
 					return;
 				}
 
 				// need to make this look better
+				console.log("Request was success");
 				document.getElementById("add-contact").innerHTML = "User added, try searching for them!";
 			}
 		};
 		xhr.send(jsonPayload);
+		console.log("sent payload")
 		
 	} catch (error) {
 		document.getElementById("add-contact").innerHTML = error.message;
+		console.log("error in catch")
 		
 	}
 
@@ -113,7 +118,7 @@ function editContact(event) {
     let firstName = document.querySelector("input[name='edit_firstname']").value.trim();
     let lastName = document.querySelector("input[name='edit_lastname']").value.trim();
     let email = document.querySelector("input[name='edit_email']").value.trim();
-    let phone = document.querySelector("input[name=\"'edit_number\"]").value.trim();
+    let phone = document.querySelector("input[name='edit_number']").value.trim();
 
     if(!firstName || !lastName || !email || phone.length != 10) {
 		// do something idk
@@ -150,7 +155,7 @@ function editContact(event) {
 
                 hideEditPopup();
 				// do something here also
-				document.window.location.href = "homepage.html"
+				window.location.href = "homepage.html"
             }
         }
         xhr.send(jsonPayload);
