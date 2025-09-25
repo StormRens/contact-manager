@@ -68,6 +68,7 @@ function addContact() {
 
 	if(!firstName || !lastName || !email || phone.length != 10) {
 		document.getElementById("add-contact").innerHTML = "Please enter all fields";
+		return;
 	}
 
 	document.getElementById("add-contact").innerHTML = "";
@@ -76,7 +77,7 @@ function addContact() {
 
 	let temp = {firstName:firstName, lastName:lastName, userId:userId, phoneNumber:phone, emailAddress:email};
 	let jsonPayload = JSON.stringify(temp);
-	let url = urlBase + 'AddContacts.' + extension;
+	let url = urlBase + '/AddContacts.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -85,7 +86,7 @@ function addContact() {
 	try {
 		xhr.onreadystatechange = function()
 		{
-			if(this.readyState == 4 & this.status == 200) {
+			if(this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
 
 				if(jsonObject.error) {
