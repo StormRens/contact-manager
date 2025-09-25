@@ -75,9 +75,9 @@ function addContact() {
 
 	readCookie(); // need to set userId to the global variable
 
-	let temp = {firstName:firstName, lastName:lastName, userId:userId, phoneNumber:phone, emailAddress:email};
+	let temp = {FirstName:firstName, LastName:lastName, UserID:userId, Phone:phone, Email:email};
 	let jsonPayload = JSON.stringify(temp);
-	let url = urlBase + '/AddContacts.' + extension;
+	let url = urlBase + '/AddContactsTwo.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
