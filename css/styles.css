@@ -211,15 +211,15 @@ select{
 .grid-container {
     display: flex;
     gap: 10px;
-    width: 80%; /* Match your overall width */
-    margin-left: 10%; /* Match your overall margin */
+    width: 80%; 
+    margin-left: 10%; 
     margin-bottom: 2%;
 }
 
 .grid-container input[type="text"] {
-    width: 100%; /* Use full width of their flex container */
-    margin-left: 0; /* Remove the left margin */
-    flex: 1; /* Equal width distribution */
+    width: 100%; 
+    margin-left: 0; 
+    flex: 1; 
 }
 
 #add-contact{
@@ -230,7 +230,7 @@ select{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    color: pink;
 }
 
 #link-logout-homepage{
