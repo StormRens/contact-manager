@@ -102,7 +102,7 @@ function addContact() {
 			}
 		};
 		xhr.send(jsonPayload);
-		console.log("sent payload")
+		console.log(jsonPayload);
 		
 	} catch (error) {
 		document.getElementById("add-contact").innerHTML = error.message;
