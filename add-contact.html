@@ -24,8 +24,11 @@
       <input type="text" id="phone-number" placeholder="Enter phone number" /><br>
     </div>
 
-    <button type="button" id="homepage" class="buttons" oneclick="homepage();">Homepage</button>
-    <button type="button" id="loginButton" class="buttons" onclick="addContact();"> Add Contact </button>
+    <div class="buttons-grid">
+      <button type="button" id="loginButton" class="buttons" onclick="addContact();"> Add Contact</button>
+      <button type="button" id="homepage" class="buttons"
+        onclick="window.location.href='homepage.html'">Homepage</button>
+    </div>
     <span id="add-contact"></span>
     <span id="success" style="color: greenyellow;"></span>
   </div>
