@@ -98,7 +98,7 @@ function addContact() {
 
 				// need to make this look better
 				console.log("Request was success");
-				document.getElementById("add-contact").innerHTML = "User added, try searching for them!";
+				document.getElementById("success").innerHTML = "User added, try searching for them!";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -137,7 +137,7 @@ function editContact(event) {
     };
     let jsonPayload = JSON.stringify(temp);
 
-    let url = urlBase + '/EditContact.' + extension;
+    let url = urlBase + '/EditContacts.' + extension;
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -341,7 +341,7 @@ function hideDeletePopup() {
 
 function confirmDeleteContact() {
     if (contactIdDelete !== null) {
-        deleteContactById(contactIdDelete);
+        deleteContact(contactIdDelete);
         hideDeletePopup();
     }
 }
