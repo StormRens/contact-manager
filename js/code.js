@@ -293,6 +293,7 @@ function searchContact() {
         let contactsHtml = "";
 
         users.forEach((user) => {
+			console.log(user);
           contactsHtml += `
       <div class="contact-card">
         <div class="contact-info">
