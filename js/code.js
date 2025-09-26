@@ -7,12 +7,13 @@ let lastName = "";
 let contactIdDelete = null;
 let contactIdEdit = null;
 
+//changing from theFrom.addEvent to editFrom.addEvent 
 document.addEventListener('DOMContentLoaded', () => {
 
     const editForm = document.getElementById("editContactForm");
 
     if (editForm) {
-        theForm.addEventListener("submit", editContact);
+        editForm.addEventListener("submit", editContact);
     } else {
         console.error("event never triggered");
     }
