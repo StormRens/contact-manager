@@ -23,7 +23,7 @@
   else
   {
     // delete only if the contact belongs to this user
-    $stmt = $conn->prepare("DELETE FROM Contacts WHERE contactId = ? AND userID = ? LIMIT 1");
+    $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND UserID = ? LIMIT 1");
     $userIdInt = (int)$userId;
     $contactIdInt = (int)$contactId;
 
