@@ -136,10 +136,10 @@ async function editContact(event) {
     }
 
     readCookie();
-
+		//capitalizing Id to ID
     let temp = {
-        ContactId: contactIdEdit,
-        UserId: userId,
+        ContactID: contactIdEdit,
+        UserID: userId,
         FirstName: firstName,
         LastName: lastName,
         Email: email,
