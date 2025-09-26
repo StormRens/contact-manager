@@ -7,6 +7,18 @@ let lastName = "";
 let contactIdDelete = null;
 let contactIdEdit = null;
 
+document.addEventListener('DOMContentLoaded', () => {
+
+    const editForm = document.getElementById("editContactForm");
+
+    if (editForm) {
+        theForm.addEventListener("submit", editContact);
+    } else {
+        console.error("event never triggered");
+    }
+    
+});
+
 function doLogin()
 {
 	userId = 0;
@@ -108,7 +120,7 @@ function addContact() {
 
 }
 
-function editContact(event) {
+async function editContact(event) {
 	console.log("In editcontact function");
     event.preventDefault();
 
@@ -293,7 +305,6 @@ function searchContact() {
         let contactsHtml = "";
 
         users.forEach((user) => {
-			console.log(user);
           contactsHtml += `
       <div class="contact-card">
         <div class="contact-info">
