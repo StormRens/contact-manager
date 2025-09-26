@@ -150,17 +150,20 @@ function editContact(event) {
 
                 if(jsonObject.error) {
 					// do something find a place to put these errors
+					console.log("Error in edit contact");
                     return;
                 }
 
                 hideEditPopup();
 				// do something here also
-				window.location.href = "homepage.html"
+				console.log(jsonObject);
+				//window.location.href = "homepage.html"
             }
         }
         xhr.send(jsonPayload);
     } catch (error) {
         // do something here
+		console.log("Error in edit contact")
     }
 }
 
