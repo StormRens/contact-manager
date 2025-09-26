@@ -27,9 +27,9 @@
       <!-- Search button with text -->
       <button type="button" id="search" class="buttons" onclick="searchContact();">Search</button>
       <!-- This isnt centered right now - we need to center it-->
-      <div id="searchResultError" style="color: red;"></div>
+      <div id="searchResultError" style="color: red; display: block; text-align: center; margin-top: 10px;"></div>
 
-       <div id="contacts-list"></div>
+      <div id="contacts-list"></div>
 
 
       <!-- Edit Form (Hidden by default) -->
@@ -57,7 +57,7 @@
           </div>
         </form>
       </div>
-      
+
       <div id="delete-contact" class="delete-confirmation" style="display:none;">
         <h3>Delete Contact</h3>
         <p>Are you sure you want to delete this contact?</p>
