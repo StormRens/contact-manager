@@ -88,16 +88,13 @@ function addContact() {
 		{
 			if(this.readyState == 4 && this.status == 200) {
 				let jsonObject = JSON.parse(xhr.responseText);
-				console.log("went into function")
 
 				if(jsonObject.error) {
-					console.log("Error in if statement");
 					document.getElementById("add-contact").innerHTML = "Something went wrong";
 					return;
 				}
 
 				// need to make this look better
-				console.log("Request was success");
 				document.getElementById("success").innerHTML = "User added, try searching for them!";
 			}
 		};
@@ -106,13 +103,13 @@ function addContact() {
 		
 	} catch (error) {
 		document.getElementById("add-contact").innerHTML = error.message;
-		console.log("error in catch")
 		
 	}
 
 }
 
 function editContact(event) {
+	console.log("In editcontact function");
     event.preventDefault();
 
     let firstName = document.querySelector("input[name='edit_firstname']").value.trim();
