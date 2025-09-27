@@ -167,7 +167,7 @@ async function editContact(event) {
                 hideEditPopup();
 				// do something here also
 				console.log(jsonObject);
-				//window.location.href = "homepage.html"
+				window.location.href = "homepage.html"
             }
         }
         xhr.send(jsonPayload);
