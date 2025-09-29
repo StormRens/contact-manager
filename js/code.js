@@ -165,9 +165,7 @@ async function editContact(event) {
                 }
 
                 hideEditPopup();
-				document.getElementById("firstname").value = jsonObject.FirstName;
-				document.getElementById("lastname").value = jsonObject.LastName;
-				searchContact();
+				window.location.href = "homepage.html";
 				//console.log(jsonObject);
             }
         }
@@ -270,7 +268,6 @@ function deleteContact(contactId) {
 }
 
 function searchContact() {
-	console.log("In contact");
   readCookie();
   let searchFirstName = document.getElementById("firstname").value.trim();
   let searchLastName = document.getElementById("lastname").value.trim();
@@ -283,7 +280,6 @@ function searchContact() {
     return;
   }
 
-  console.log("continued in search");
   document.getElementById("searchResultError").innerHTML = "";
 
   let temp = { search: searchTerm, userId: userId };
