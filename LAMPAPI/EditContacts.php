@@ -1,4 +1,5 @@
 <?php
+require_once 'cors.php';
 //EditContacts.php -> Update a contact owned by a user 
 
 //Expecting Front-End Request names to be : ContactID, UserID, FirstName, LastName, Email, Phone

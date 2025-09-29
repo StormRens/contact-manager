@@ -1,4 +1,5 @@
 <?php
+	require_once 'cors.php';
 	#this is the login page
 	$inData = getRequestInfo();
 	

@@ -1,5 +1,5 @@
 <?php
-
+	require_once 'cors.php';
 	$inData = getRequestInfo();
 
     #initialize variables

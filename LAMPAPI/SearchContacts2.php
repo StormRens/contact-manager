@@ -1,4 +1,5 @@
 <?php
+require_once 'cors.php';
 // SearchContacts.php : Returns contacts owned by a specific user (Contacts table),
 // matching a string Search term. It looks over FirstName, LastName, Email, or Phone
 
