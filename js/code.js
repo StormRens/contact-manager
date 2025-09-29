@@ -270,17 +270,20 @@ function deleteContact(contactId) {
 }
 
 function searchContact() {
+	console.log("In contact");
   readCookie();
   let searchFirstName = document.getElementById("firstname").value.trim();
   let searchLastName = document.getElementById("lastname").value.trim();
   let searchTerm = searchFirstName + searchLastName;
 
   if (!searchTerm) {
+	console.log("left contact")
     document.getElementById("searchResultError").innerHTML =
       "Please enter a first or last name to search";
     return;
   }
 
+  console.log("continued in search");
   document.getElementById("searchResultError").innerHTML = "";
 
   let temp = { search: searchTerm, userId: userId };
