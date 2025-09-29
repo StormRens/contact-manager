@@ -6,6 +6,8 @@
 
 //ID from the contacts table is written as ID, but using ContactID for clarity 
 
+require_once 'cors.php';
+
 header("Content-Type: application/json");
 
 //Get front-end request
