@@ -165,9 +165,10 @@ async function editContact(event) {
                 }
 
                 hideEditPopup();
-				// do something here also
-				console.log(jsonObject);
-				window.location.href = "homepage.html"
+				document.getElementById("firstname").value = jsonObject.FirstName;
+				document.getElementById("lastname").value = jsonObject.LastName;
+				searchContact();
+				//console.log(jsonObject);
             }
         }
         xhr.send(jsonPayload);
